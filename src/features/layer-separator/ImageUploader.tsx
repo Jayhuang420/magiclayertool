@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react'
 import FileDropZone from '../../components/common/FileDropZone'
 import { useLayerStore } from '../../stores/layerStore'
-import { segmentImage, SegmentedLayer } from '../../services/segmentationApi'
+import { segmentImage, extractLayers, detectFileType, SegmentedLayer } from '../../services/segmentationApi'
 import { useTranslation } from 'react-i18next'
 
 function fileToDataUrl(file: File): Promise<string> {
@@ -27,10 +27,18 @@ export default function ImageUploader() {
       setError(null)
 
       try {
-        const dataUrl = await fileToDataUrl(file)
-        setSourceImage(dataUrl)
+        const fileType = detectFileType(file)
 
-        const segments: SegmentedLayer[] = await segmentImage(file)
+        if (fileType === 'image') {
+          const dataUrl = await fileToDataUrl(file)
+          setSourceImage(dataUrl)
+        } else {
+          setSourceImage('')
+        }
+
+        const segments: SegmentedLayer[] = fileType === 'image'
+          ? await segmentImage(file)
+          : await extractLayers(file)
 
         const layers = segments.map((seg, i) => ({
           id: `layer-${Date.now()}-${i}`,

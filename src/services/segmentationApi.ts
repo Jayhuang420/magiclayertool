@@ -6,6 +6,15 @@ export interface SegmentedLayer {
   bounds: { x: number; y: number; w: number; h: number }
 }
 
+export type SupportedFileType = 'image' | 'pdf' | 'pptx'
+
+export function detectFileType(file: File): SupportedFileType {
+  const ext = file.name.split('.').pop()?.toLowerCase()
+  if (ext === 'pdf') return 'pdf'
+  if (ext === 'pptx') return 'pptx'
+  return 'image'
+}
+
 export async function segmentImage(file: File): Promise<SegmentedLayer[]> {
   const form = new FormData()
   form.append('image', file)
@@ -17,6 +26,23 @@ export async function segmentImage(file: File): Promise<SegmentedLayer[]> {
 
   if (!res.ok) {
     throw new Error(`分割失敗: ${res.statusText}`)
+  }
+
+  return res.json()
+}
+
+export async function extractLayers(file: File): Promise<SegmentedLayer[]> {
+  const form = new FormData()
+  form.append('file', file)
+
+  const res = await fetch(`${API_BASE}/api/extract`, {
+    method: 'POST',
+    body: form,
+  })
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => null)
+    throw new Error(errorData?.detail || `提取失敗: ${res.statusText}`)
   }
 
   return res.json()

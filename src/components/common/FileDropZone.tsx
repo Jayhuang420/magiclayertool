@@ -6,7 +6,7 @@ interface FileDropZoneProps {
   accept?: string
 }
 
-export default function FileDropZone({ onFile, accept = 'image/*' }: FileDropZoneProps) {
+export default function FileDropZone({ onFile, accept = 'image/*,.pdf,.pptx,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation' }: FileDropZoneProps) {
   const { t } = useTranslation()
   const [isDragging, setIsDragging] = useState(false)
 
@@ -15,8 +15,11 @@ export default function FileDropZone({ onFile, accept = 'image/*' }: FileDropZon
       e.preventDefault()
       setIsDragging(false)
       const file = e.dataTransfer.files[0]
-      if (file && file.type.startsWith('image/')) {
-        onFile(file)
+      if (file) {
+        const ext = file.name.split('.').pop()?.toLowerCase()
+        if (file.type.startsWith('image/') || ext === 'pdf' || ext === 'pptx') {
+          onFile(file)
+        }
       }
     },
     [onFile]
@@ -59,7 +62,7 @@ export default function FileDropZone({ onFile, accept = 'image/*' }: FileDropZon
         {t('layer.pasteHint')}
       </p>
       <p style={{ fontSize: 12, color: '#475569', marginTop: 12 }}>
-        PNG, JPG, WebP
+        PNG, JPG, WebP, PDF, PPTX
       </p>
     </div>
   )
