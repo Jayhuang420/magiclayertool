@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 
 const navItems = [
   { path: '/layers', icon: '🖼️', labelKey: 'nav.layerSeparator' },
-  { path: '/manual', icon: '📄', labelKey: 'nav.manualEditor' },
 ]
 
 export default function Sidebar() {

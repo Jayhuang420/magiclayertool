@@ -4,8 +4,7 @@
     "subtitle": "AI 圖片分層工具"
   },
   "nav": {
-    "layerSeparator": "圖層分離",
-    "manualEditor": "商品說明書"
+    "layerSeparator": "圖層分離"
   },
   "layer": {
     "upload": "上傳圖片",
@@ -29,33 +28,6 @@
     "exportPSD": "匯出為 PSD",
     "exportPNG": "匯出分層 PNG (ZIP)",
     "noImage": "尚未載入圖片"
-  },
-  "manual": {
-    "title": "商品說明書編輯器",
-    "placeholder": "在此輸入商品說明...",
-    "templates": "範本",
-    "selectTemplate": "選擇範本",
-    "basicTemplate": "基本商品說明書",
-    "detailedTemplate": "詳細規格說明書",
-    "exportPDF": "匯出為 PDF",
-    "exportDOCX": "匯出為 Word",
-    "insertLayerImage": "插入圖層圖片",
-    "bold": "粗體",
-    "italic": "斜體",
-    "underline": "底線",
-    "strikethrough": "刪除線",
-    "heading1": "標題一",
-    "heading2": "標題二",
-    "heading3": "標題三",
-    "bulletList": "項目符號",
-    "orderedList": "編號清單",
-    "table": "表格",
-    "image": "圖片",
-    "alignLeft": "靠左對齊",
-    "alignCenter": "置中對齊",
-    "alignRight": "靠右對齊",
-    "undo": "復原",
-    "redo": "重做"
   },
   "common": {
     "save": "儲存",
